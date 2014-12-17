@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "initDB": "node scripts/initialize_db.js data/school.db",
+    "test": "mocha tests/*test.js"
   },
   "dependencies": {
     "express": "~4.9.0",

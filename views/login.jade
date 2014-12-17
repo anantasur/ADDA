@@ -1,0 +1,18 @@
+extends layout
+block vars
+ - var title = "Login"
+
+block content
+  h1 Login to your account
+  if error
+   p ERROR: #{error}
+  form(action="/login" method="POST")
+   span 
+    |Email:
+    input(type="email" name="email" required)
+   br
+   span 
+    |Password:
+    input(type="password" name="password" required)
+   br
+   input(type="submit" value="Login")

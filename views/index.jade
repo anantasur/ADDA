@@ -1,0 +1,15 @@
+extends layout
+block vars
+ - var title = 'Home'
+
+block content
+  h1 Adda
+  p 
+   |Welcome to Adda home page.
+   br
+   |Please 
+   a(href="/register") register
+   |&nbsp;or 
+   a(href="/login") login
+   |&nbsp;to continue
+
