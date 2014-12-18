@@ -20,7 +20,7 @@ var runAllQueries = function(){
 			" foreign key(owner_id) references users(id));",
 
 		"create table comments(topic_id integer not null, user_id integer not null,"+
-			" comment text, foreign key(topic_id) references topics(id),"+
+			" comment text,entered_time text, foreign key(topic_id) references topics(id),"+
 			" foreign key(user_id) references users(id));",
 
 		"create table joinedUsers(user_id integer not null, topic_id integer not null,"+
