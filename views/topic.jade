@@ -1,0 +1,14 @@
+extends layout
+block vars
+	- var title = "Topics"
+
+block content
+	h1 Topic
+	| Name: #{topic.name}
+	| Started By : #{topic.startedBy}
+	| Start Time : #{topic.startTime}
+	| End Time : #{topic.endTime}
+	| Description : #{topic.description}
+
+	input(type='text' placeholder='Enter your comment' name='comment')
+	button(type='button' name='send' value='send') Send
