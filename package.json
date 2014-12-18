@@ -17,7 +17,9 @@
     "debug": "~2.0.0",
     "jade": "~1.6.0",
     "sqlite3": "3.0.4",
-    "lodash":"*"
+    "lodash":"*",
+    "express-session":"*",
+    "bcryptjs":"*"
   },
   "devDependencies":{
     "chai": "1.10.0",
