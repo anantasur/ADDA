@@ -22,8 +22,7 @@ router.post('/register', function(req, res) {
     password:hash
   };
   adda_records.addNewUser(result,function(error){
-    adda_records.get
-    error ? res.render('register',result) : res.redirect('/dashboard');
+      error ? res.render('register',result) : res.redirect('/dashboard');
     });  
 });
 
@@ -55,7 +54,7 @@ router.post('/topics', function(req,res){
     });
 });
 
-router.get('/topic',function(req,res){
+router.get('/topic/:id',function(req,res){
   res.render('topic');
 });
 

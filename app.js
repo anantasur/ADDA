@@ -33,12 +33,11 @@ app.get('/topicsList',function(req,res,next){
     var relatedTopics = topicNames.filter(function(name){
         return name.toLowerCase().indexOf(topicAskedByUser)>=0;
     });
-    var related = relatedTopics.map(function(obj){
+    var getIdAndName = relatedTopics.map(function(obj){
 
         return _.filter(topics,{'name':obj})[0];
     });
-    console.log('------------',related)
-    relatedTopics && res.render('topicsList',{topicNames:related});
+    relatedTopics && res.render('topicsList',{topicNames:getIdAndName});
     err && next();
   });
 });
