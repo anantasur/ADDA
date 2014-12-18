@@ -13,10 +13,6 @@ router.get('/register',function(req,res){
   res.render('register');
 });
 
-router.get('/login',function(req,res){
-  res.render('login');
-});
-
 router.post('/register', function(req, res) {
   var salt = bc.genSaltSync(10);
   var hash = bc.hashSync(req.body.password,salt);
@@ -29,6 +25,10 @@ router.post('/register', function(req, res) {
     adda_records.get
     error ? res.render('register',result) : res.redirect('/dashboard');
     });  
+});
+
+router.get('/login',function(req,res){
+  res.render('login');
 });
 
 router.post('/login', function(req, res) {
@@ -53,6 +53,10 @@ router.post('/topics', function(req,res){
     adda_records.addNewTopic(new_topic,function(err){
       res.render('topics');
     });
+});
+
+router.get('/topic',function(req,res){
+  res.render('topic');
 });
 
 module.exports = router;

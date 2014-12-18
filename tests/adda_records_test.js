@@ -71,6 +71,9 @@ describe('adda_records',function(){
 								start_time:'Wed Dec 17 2014 17:07:55',
 								owner_id:1
 							};
+			var newTopic = {topic_name:'PK',topic_desc:'dec-19th release',
+							start_time:'Wed Dec 17 2014 17:07:55',owner_id:1
+						};
 			var expected = {
 								id:3,
 								name:'PK',
@@ -86,6 +89,26 @@ describe('adda_records',function(){
 					assert.deepEqual(topic_details,expected);
 					done();
 				});
+			});
+		});
+	});
+
+	describe('#getComments',function(){
+		it('retrieves the comments of cricket',function(done){
+			adda_records.getComments(1,function(err,comments){
+				var expected = [ { topic_id: 1, user_id: 1, comment: 'hello' },
+  								{ topic_id: 1, user_id: 2, comment: 'seeya' } ];
+				assert.notOk(err);
+				assert.deepEqual(comments,expected);
+				done();
+			});
+		});
+
+		it('retrieves no comments for non existing topic',function(done){
+			adda_records.getComments(8,function(err,comments){
+				assert.notOk(err);
+				assert.notOk(comments);
+				done();
 			});
 		});
 	});
