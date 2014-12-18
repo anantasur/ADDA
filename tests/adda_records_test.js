@@ -172,8 +172,14 @@ describe('adda_records',function(){
 			});
 		});
 	});
+	describe('#getFiveLastCommentedTopics',function(){
+		it('retrieves the last 5 commented topics',function(done){
+			var expected =[ 'Cricket', 'Football' ];
+			adda_records.getFiveLastCommentedTopics(function(err,topics){
+				assert.notOk(err);
+				assert.deepEqual(topics,expected);
+				done();
+			});
+		});
+	});
 });
-
-
-
-
