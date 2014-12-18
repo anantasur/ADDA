@@ -26,6 +26,7 @@ router.post('/register', function(req, res) {
     password:hash
   };
   adda_records.addNewUser(result,function(error){
+    adda_records.get
     error ? res.render('register',result) : res.redirect('/dashboard');
     });  
 });

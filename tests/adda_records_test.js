@@ -14,7 +14,8 @@ describe('adda_records',function(){
 		it('retrieves email and password',function(done){
 			adda_records.getEmailAndPassword(function(err,users){
 				assert.notOk(err);
-				assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'}, {id:2,email:'vikas2@email.com',password:'vikas123'}]);
+				assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'},
+										{id:2,email:'vikas2@email.com',password:'vikas123'}]);
 				done();
 			});
 		});
@@ -26,7 +27,9 @@ describe('adda_records',function(){
 			adda_records.addNewUser(user,function(err){
 				assert.notOk(err);
 				adda_records.getEmailAndPassword(function(err,users){
-					assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'}, {id:2,email:'vikas2@email.com',password:'vikas123'}, {id:3,email:'krati@gmail.com',password:'krati'}])
+					assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'},
+											 {id:2,email:'vikas2@email.com',password:'vikas123'}, 
+											 {id:3,email:'krati@gmail.com',password:'krati'}]);
 					done();
 				});
 			});
@@ -62,9 +65,15 @@ describe('adda_records',function(){
 
 	describe('#addNewTopic',function(){
 		it('adds a new topic PK ,its description,owner id and start time',function(done){
-			var newTopic = {topic_name:'PK',topic_desc:'dec-19th release',start_time:'Wed Dec 17 2014 17:07:55',owner_id:1};
+			var newTopic = {
+								topic_name:'PK',
+								topic_desc:'dec-19th release',
+								start_time:'Wed Dec 17 2014 17:07:55',
+								owner_id:1
+							};
 			var expected = {
-								id:3,name:'PK',
+								id:3,
+								name:'PK',
 								description:'dec-19th release',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,

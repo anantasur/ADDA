@@ -27,13 +27,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 app.get('/topicsList',function(req,res,next){
-  var topicAskedByUser = req.query.topic.toLowerCase();
+  var topicAskedByUser = req.query.topic;
   adda_records.getTopics(function(err,topics){
     var topicNames =  _.map(topics,'name');
     var relatedTopics = topicNames.filter(function(name){
         return name.toLowerCase().indexOf(topicAskedByUser)>=0;
     });
-    relatedTopics && res.render('topicsList',{topicNames:relatedTopics});
+    var related = relatedTopics.map(function(obj){
+
+        return _.filter(topics,{'name':obj})[0];
+    });
+    console.log('------------',related)
+    relatedTopics && res.render('topicsList',{topicNames:related});
     err && next();
   });
 });
