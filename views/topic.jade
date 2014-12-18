@@ -2,13 +2,39 @@ extends layout
 block vars
 	- var title = "Topics"
 
+block scripts
+	script(type="text/javascript" src="../javascripts/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../javascripts/app_main.js")
+
 block content
 	h1 Topic
-	| Name: #{topic.name}
-	| Started By : #{topic.startedBy}
-	| Start Time : #{topic.startTime}
-	| End Time : #{topic.endTime}
-	| Description : #{topic.description}
-
-	input(type='text' placeholder='Enter your comment' name='comment')
-	button(type='button' name='send' value='send') Send
+	table(border='5')
+		tr 
+			th Name
+			th Started By
+			th Start Time
+			th  End Time
+		tr
+			td #{name}
+			td #{startedBy}
+			td #{start_time}
+			td #{end_time}
+	br
+	table
+		tr
+			td Description: #{description}
+	br
+	br
+	#loadComplete
+		button(type='button' name='loadComplete' value='loadComplete') Load Complete
+	br
+	div
+		h5 COMMENTS
+		each item in comments
+			| #{item.comment}
+			| #{item.entered_time}
+			| #{item.user_name}
+			br
+	div
+		input(type='text' placeholder='Enter your comment' name='comment')
+		button(type='button' name='send' value='send') Send

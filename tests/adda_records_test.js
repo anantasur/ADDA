@@ -53,7 +53,8 @@ describe('adda_records',function(){
 								description:'About ind-Aus',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,
-								owner_id:2
+								owner_id:2,
+								startedBy : 'vikas2'
 							};
 			adda_records.getTopicDetails(1,function(err,topic_details){
 				assert.notOk(err);
@@ -80,7 +81,8 @@ describe('adda_records',function(){
 								description:'dec-19th release',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,
-								owner_id:1
+								owner_id:1,
+								startedBy:'vikas'
 							};
 			adda_records.addNewTopic(newTopic,function(err){
 				assert.notOk(err);
@@ -97,17 +99,17 @@ describe('adda_records',function(){
 		it('retrieves the comments of cricket',function(done){
 			adda_records.getAllComments(1,function(err,comments){
 				var expected = [{"comment": "hello","entered_time": "Wed Dec 17 2014 17:07:55",
-						   "topic_id": 1,"user_id": 1},
+						   "topic_id": 1,"user_id": 1,"user_name":'vikas'},
 						   {"comment": "seeya", "entered_time": "Wed Dec 17 2014 17:08:55",
-						   "topic_id": 1,"user_id": 2},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "helloooooo","entered_time": "Wed Dec 17 2014 17:08:57",
-						   "topic_id": 1,"user_id": 2},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "asdfghj","entered_time": "Wed Dec 18 2014 17:07:55",
-						   "topic_id": 1, "user_id": 3},
+						   "topic_id": 1, "user_id": 1,"user_name":'vikas'},
 						   {"comment": "asdfgh","entered_time": "Wed Dec 17 2014 17:08:59",
-						   "topic_id": 1,"user_id": 2},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "go_away","entered_time": "Wed Dec 18 2014 17:10:55",
-						   "topic_id": 1,"user_id": 2}];
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'}];
 				assert.notOk(err);
 				assert.deepEqual(comments,expected);
 				done();
@@ -135,7 +137,7 @@ describe('adda_records',function(){
 						    comment: 'helloooooo',
 						    entered_time: 'Wed Dec 17 2014 17:08:57' },
 						  { topic_id: 1,
-						    user_id: 3,
+						    user_id: 1,
 						    comment: 'asdfghj',
 						    entered_time: 'Wed Dec 18 2014 17:07:55' },
 						  { topic_id: 1,
@@ -159,6 +161,7 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
 	// describe('#getNewUser',function(){
 	// 	it('gets the last inserted user',function(done){
 	// 		var user = {name:'userx',email:'userx@gmail.com',password:'userx'};

@@ -55,7 +55,13 @@ router.post('/topics', function(req,res){
 });
 
 router.get('/topic/:id',function(req,res){
-  res.render('topic');
+  adda_records.getTopicDetails(req.params.id,function(err,topic){
+    adda_records.getLastFiveComments(req.params.id,function(err,comments){
+      topic.comments = comments;
+      
+      res.render('topic',topic);      
+    });
+  });
 });
 
 module.exports = router;
