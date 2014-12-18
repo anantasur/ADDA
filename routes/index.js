@@ -55,7 +55,7 @@ router.post('/topics', function(req,res){
     });
 });
 
-router.get('/topic',function(req,res){
+router.get('/topic/:id',function(req,res){
   res.render('topic');
 });
 

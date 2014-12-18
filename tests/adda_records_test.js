@@ -93,11 +93,21 @@ describe('adda_records',function(){
 		});
 	});
 
-	describe('#getComments',function(){
+	describe('#getAllComments',function(){
 		it('retrieves the comments of cricket',function(done){
-			adda_records.getComments(1,function(err,comments){
-				var expected = [ { topic_id: 1, user_id: 1, comment: 'hello' },
-  								{ topic_id: 1, user_id: 2, comment: 'seeya' } ];
+			adda_records.getAllComments(1,function(err,comments){
+				var expected = [{"comment": "hello","entered_time": "Wed Dec 17 2014 17:07:55",
+						   "topic_id": 1,"user_id": 1},
+						   {"comment": "seeya", "entered_time": "Wed Dec 17 2014 17:08:55",
+						   "topic_id": 1,"user_id": 2},
+						   {"comment": "helloooooo","entered_time": "Wed Dec 17 2014 17:08:57",
+						   "topic_id": 1,"user_id": 2},
+						   {"comment": "asdfghj","entered_time": "Wed Dec 18 2014 17:07:55",
+						   "topic_id": 1, "user_id": 3},
+						   {"comment": "asdfgh","entered_time": "Wed Dec 17 2014 17:08:59",
+						   "topic_id": 1,"user_id": 2},
+						   {"comment": "go_away","entered_time": "Wed Dec 18 2014 17:10:55",
+						   "topic_id": 1,"user_id": 2}];
 				assert.notOk(err);
 				assert.deepEqual(comments,expected);
 				done();
@@ -105,7 +115,44 @@ describe('adda_records',function(){
 		});
 
 		it('retrieves no comments for non existing topic',function(done){
-			adda_records.getComments(8,function(err,comments){
+			adda_records.getAllComments(8,function(err,comments){
+				assert.notOk(err);
+				assert.notOk(comments);
+				done();
+			});
+		});
+	});
+
+	describe('#getLastFiveComments',function(){
+		it('retrieves the comments of cricket',function(done){
+			adda_records.getLastFiveComments(1,function(err,comments){
+				var expected = [ { topic_id: 1,
+						    user_id: 2,
+						    comment: 'seeya',
+						    entered_time: 'Wed Dec 17 2014 17:08:55' },
+						  { topic_id: 1,
+						    user_id: 2,
+						    comment: 'helloooooo',
+						    entered_time: 'Wed Dec 17 2014 17:08:57' },
+						  { topic_id: 1,
+						    user_id: 3,
+						    comment: 'asdfghj',
+						    entered_time: 'Wed Dec 18 2014 17:07:55' },
+						  { topic_id: 1,
+						    user_id: 2,
+						    comment: 'asdfgh',
+						    entered_time: 'Wed Dec 17 2014 17:08:59' },
+						  { topic_id: 1,
+						    user_id: 2,
+						    comment: 'go_away',
+						    entered_time: 'Wed Dec 18 2014 17:10:55' } ]
+				assert.notOk(err);
+				assert.deepEqual(comments,expected);
+				done();
+			});
+		});
+		it('retrieves no comments for non existing topic',function(done){
+			adda_records.getLastFiveComments(8,function(err,comments){
 				assert.notOk(err);
 				assert.notOk(comments);
 				done();
