@@ -32,10 +32,14 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res) {
   adda_records.getEmailAndPassword(function(err,users){
-    console.log('data acquired',users);
-    _.some(users,{email:req.body.email,password:req.body.password})?
+    var userPassword = _.find(users,{email:req.body.email})
+    _.some(users,{email:req.body.email}) && bc.compareSync(req.body.password,userPassword.password)?
     res.redirect('/dashboard'):res.render('login',{error:'invalid email or password'});
   });
+});
+
+router.get('/dashboard', function(req, res) {
+  res.render('dashboard'); 
 });
 
 
