@@ -39,7 +39,6 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/dashboard/:id', function(req, res) {
-  console.log('dashboard',req.params.id);
   res.render('dashboard',{user_id:req.params.id}); 
 });
 

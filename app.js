@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var routes = require('./routes/index');
+var adda_records = require('./lib/adda_records').init('./data/adda.db');
+var _ = require('lodash');
 
 var app = express();
 
@@ -23,6 +25,18 @@ app.use(session({secret:'shh dont tell',cookie:{maxAge:600000}}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+app.get('/topicsList',function(req,res,next){
+  var topicAskedByUser = req.query.topic.toLowerCase();
+  adda_records.getTopics(function(err,topics){
+    var topicNames =  _.map(topics,'name');
+    var relatedTopics = topicNames.filter(function(name){
+        return name.toLowerCase().indexOf(topicAskedByUser)>=0;
+    });
+    relatedTopics && res.render('topicsList',{topicNames:relatedTopics});
+    err && next();
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
