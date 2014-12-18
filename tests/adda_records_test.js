@@ -159,18 +159,19 @@ describe('adda_records',function(){
 			});
 		});
 	});
-	// describe('#getNewUser',function(){
-	// 	it('gets the last inserted user',function(done){
-	// 		var user = {name:'userx',email:'userx@gmail.com',password:'userx'};
-	// 		var expected = {id:7,name:'userx',email:'userx@gmail.com',password:'userx'}
-	// 		adda_records.addNewUser(user,function(err){
-	// 			adda_records.getNewUser(function(err,user){
-	// 				assert.notOk(err);
-	// 				assert.deepEqual(user,expected);
-	// 			});
-	// 		});
-	// 	});
-	// });
+	describe('#getNewUser',function(){
+		it('gets the last inserted user',function(done){
+			var user = {name:'userx',email:'userx@gmail.com',password:'userx'};
+			var expected = {id:3,name:'userx',email:'userx@gmail.com',password:'userx'};
+			adda_records.addNewUser(user,function(err){
+				adda_records.getNewUser(function(err,user){
+					assert.notOk(err);
+					assert.deepEqual(user,expected);
+					done();
+				});
+			});
+		});
+	});
 });
 
 
