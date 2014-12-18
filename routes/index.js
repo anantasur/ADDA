@@ -38,13 +38,21 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.get('/dashboard', function(req, res) {
-  res.render('dashboard'); 
+router.get('/dashboard/:id', function(req, res) {
+  console.log('dashboard',req.params.id);
+  res.render('dashboard',{user_id:req.params.id}); 
 });
 
-router.get('/topics', function(req, res) {
-  res.render('topics'); 
+router.get('/topics/:id', function(req, res) {
+  res.render('topics',{user_id:req.params.id}); 
 });
 
+router.post('/topics', function(req,res){
+    var new_topic = {topic_name:req.body.topicName,topic_desc:req.body.topicDesc,owner_id:req.body.user_id};
+    new_topic.start_time = new Date().toString().split('GMT')[0];
+    adda_records.addNewTopic(new_topic,function(err){
+      res.render('topics');
+    });
+});
 
 module.exports = router;
