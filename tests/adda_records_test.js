@@ -186,8 +186,30 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
+	describe('#getNewUser',function(){
+		it('gets the last inserted user',function(done){
+			var user = {name:'userx',email:'userx@gmail.com',password:'userx'};
+			var expected = {id:3,name:'userx',email:'userx@gmail.com',password:'userx'};
+			adda_records.addNewUser(user,function(err){
+				adda_records.getNewUser(function(err,user){
+					assert.notOk(err);
+					assert.deepEqual(user,expected);
+					done();
+				});
+			});
+		});
+	});
+
+
+	describe('#getFiveLastCommentedTopics',function(){
+		it('retrieves the last 5 commented topics',function(done){
+			var expected =[ 'Cricket', 'Football' ];
+			adda_records.getFiveLastCommentedTopics(function(err,topics){
+				assert.notOk(err);
+				assert.deepEqual(topics,expected);
+				done();
+			});
+		});
+	});
 });
-
-
-
-

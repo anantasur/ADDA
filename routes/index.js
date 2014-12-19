@@ -5,6 +5,23 @@ var adda_records = require('../lib/adda_records').init('./data/adda.db');
 var _ = require('lodash');
 var winston = require('winston');
 
+var loadUserFromSession = function(req,res,next){
+  var user = req.session.userEmail;
+  if(user){
+    req.user = user;    
+    res.locals.user = user;
+  }else{
+    delete req.session.userEmail;
+  }
+  next();
+};
+
+var requireLogin = function(req,res,next){
+  req.user? next(): res.redirect('/login');
+};
+
+router.use(loadUserFromSession);
+
 router.get('/',function(req,res){
   res.render('index');
 });
@@ -22,8 +39,11 @@ router.post('/register', function(req, res) {
     password:hash
   };
   adda_records.addNewUser(result,function(error){
-      error ? res.render('register',result) : res.redirect('/dashboard');
-    });  
+    error ? res.render('register',result) :
+    adda_records.getNewUser(function(err,user){
+       res.redirect('/dashboard/'+user.id);      
+    });
+  });  
 });
 
 router.get('/login',function(req,res){
@@ -33,8 +53,11 @@ router.get('/login',function(req,res){
 router.post('/login', function(req, res) {
   adda_records.getEmailAndPassword(function(err,users){
     var user = _.find(users,{email:req.body.email});
-    user && bc.compareSync(req.body.password,user.password)?
-    res.redirect('/dashboard/'+user.id):res.render('login',{error:'invalid email or password'});
+    if(user && bc.compareSync(req.body.password,user.password)){
+      req.session.userEmail = user.email;
+      res.redirect('/dashboard/'+user.id);  
+    }else
+    res.render('login',{error:'invalid email or password'});
   });
 });
 
@@ -50,7 +73,7 @@ router.post('/topics', function(req,res){
     var new_topic = {topic_name:req.body.topicName,topic_desc:req.body.topicDesc,owner_id:req.body.user_id};
     new_topic.start_time = new Date().toString().split('GMT')[0];
     adda_records.addNewTopic(new_topic,function(err){
-      res.render('topics');
+    res.redirect('/topics/'+req.body.user_id);
     });
 });
 
@@ -63,6 +86,11 @@ router.get('/topic/:id',function(req,res){
       res.render('topic',topic);      
     });
   });
+});
+
+router.get('/logout',function(req,res){
+  req.session.destroy();
+  res.redirect('/');
 });
 
 module.exports = router;
