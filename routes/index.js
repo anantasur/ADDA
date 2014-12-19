@@ -65,6 +65,7 @@ router.post('/login', function(req, res) {
 
 router.get('/dashboard/:id', function(req, res) {
   adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
+    console.log('------------',relatedTopics)
     res.render('dashboard',{user_id:req.params.id,topics:relatedTopics}); 
   });
 });
@@ -85,7 +86,16 @@ router.post('/topics', function(req,res){
 });
 
 router.get('/topic/:id',function(req,res){
-  res.render('topic');
+  var params = req.params.id.split('_');
+  adda_records.getTopicDetails(params[0],function(err,topic){
+    adda_records.getLastFiveComments(params[0],function(err,comments){
+      topic.user_id = params[1];
+      topic.topic_id = params[0];
+      topic.comments = comments || [];
+        console.log('---------',topic)
+      res.render('topic',topic);
+    });
+  });
 });
 
 router.get('/logout',function(req,res){

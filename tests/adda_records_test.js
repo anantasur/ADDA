@@ -53,7 +53,8 @@ describe('adda_records',function(){
 								description:'About ind-Aus',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,
-								owner_id:2
+								owner_id:2,
+								startedBy : 'vikas2'
 							};
 			adda_records.getTopicDetails(1,function(err,topic_details){
 				assert.notOk(err);
@@ -80,7 +81,8 @@ describe('adda_records',function(){
 								description:'dec-19th release',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,
-								owner_id:1
+								owner_id:1,
+								startedBy:'vikas'
 							};
 			adda_records.addNewTopic(newTopic,function(err){
 				assert.notOk(err);
@@ -97,17 +99,15 @@ describe('adda_records',function(){
 		it('retrieves the comments of cricket',function(done){
 			adda_records.getAllComments(1,function(err,comments){
 				var expected = [{"comment": "hello","entered_time": "Wed Dec 17 2014 17:07:55",
-						   "topic_id": 1,"user_id": 1},
+						   "topic_id": 1,"user_id": 1,"user_name":'vikas'},
 						   {"comment": "seeya", "entered_time": "Wed Dec 17 2014 17:08:55",
-						   "topic_id": 1,"user_id": 2},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "helloooooo","entered_time": "Wed Dec 17 2014 17:08:57",
-						   "topic_id": 1,"user_id": 2},
-						   {"comment": "asdfghj","entered_time": "Wed Dec 18 2014 17:07:55",
-						   "topic_id": 1, "user_id": 3},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "asdfgh","entered_time": "Wed Dec 17 2014 17:08:59",
-						   "topic_id": 1,"user_id": 2},
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'},
 						   {"comment": "go_away","entered_time": "Wed Dec 18 2014 17:10:55",
-						   "topic_id": 1,"user_id": 2}];
+						   "topic_id": 1,"user_id": 2,"user_name":'vikas2'}];
 				assert.notOk(err);
 				assert.deepEqual(comments,expected);
 				done();
@@ -126,24 +126,28 @@ describe('adda_records',function(){
 	describe('#getLastFiveComments',function(){
 		it('retrieves the comments of cricket',function(done){
 			adda_records.getLastFiveComments(1,function(err,comments){
-				var expected = [ { topic_id: 1,
+				var expected = [{ user_name: 'vikas',
+							user_id: 1,topic_id: 1,
+							comment: 'hello',
+							entered_time: 'Wed Dec 17 2014 17:07:55' },
+							{ topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'seeya',
 						    entered_time: 'Wed Dec 17 2014 17:08:55' },
 						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'helloooooo',
 						    entered_time: 'Wed Dec 17 2014 17:08:57' },
 						  { topic_id: 1,
-						    user_id: 3,
-						    comment: 'asdfghj',
-						    entered_time: 'Wed Dec 18 2014 17:07:55' },
-						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'asdfgh',
 						    entered_time: 'Wed Dec 17 2014 17:08:59' },
 						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'go_away',
 						    entered_time: 'Wed Dec 18 2014 17:10:55' } ]
 				assert.notOk(err);
@@ -159,6 +163,27 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
+	describe('#addNewComment',function(){
+		it('adds new comment how are you? in comments table',function(done){
+			var new_comment = {'topic_id':2, 'user_id':2, 'comment':'how are you?',
+							 'entered_time':'Fri Dec 20 2014 17:10:05'};
+
+			var expected = [{'user_name': 'vikas2','user_id': 2,'topic_id': 2,
+						'comment': 'byee','entered_time': 'Wed Dec 17 2014 17:08:56' },
+						{'user_name': 'vikas2','topic_id':2, 'user_id':2, 'comment':'how are you?',
+							 'entered_time':'Fri Dec 20 2014 17:10:05'}];
+
+			adda_records.addNewComment(new_comment, function(err){
+				adda_records.getLastFiveComments(2,function(err,comments){
+					assert.notOk(err);
+					assert.deepEqual(comments,expected);
+					done();
+				});
+			});
+		});
+	});
+
 	describe('#getNewUser',function(){
 		it('gets the last inserted user',function(done){
 			var user = {name:'userx',email:'userx@gmail.com',password:'userx'};
@@ -172,6 +197,8 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
+
 	describe('#getFiveLastCommentedTopics',function(){
 		it('retrieves the last 5 commented topics',function(done){
 			var expected =[ 'Cricket', 'Football' ];
@@ -182,33 +209,6 @@ describe('adda_records',function(){
 			});
 		});
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	describe('#getUserRelatedTopics',function(){
 		it('retrieves user related all topics',function(done){
@@ -232,17 +232,5 @@ describe('adda_records',function(){
 				done();
 			});
 		});
-});
-
-
-
-
-
-
-
-
-
-
-
-
+	});
 });

@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 app.get('/topicsList',function(req,res,next){
+  var user_id = req.query.user;
   var topicAskedByUser = req.query.topic;
   var user_id = req.query.user;
   adda_records.getTopics(function(err,topics){
@@ -42,6 +43,28 @@ app.get('/topicsList',function(req,res,next){
     err && next();
   });
 });
+
+app.get('/commentsList',function(req,res,next){
+    var topicId = req.query.topic_id;
+    adda_records.getAllComments(topicId,function(err,comments){
+        comments && res.render('commentsList',{comments:comments});
+        err && next();
+    });
+});
+
+app.get('/addComment',function(req,res,next){
+    var newComment = req.query.comment;
+    var topicId = req.query.topicId;
+    var user_id = req.query.userId;
+    var newTime = String(new Date()).split('GMT')[0];
+    var comment = {'topic_id':topicId, 'comment':req.query.comment,'user_id': user_id,
+                             'entered_time': newTime};
+    adda_records.addNewComment(comment,function(err){
+        adda_records.get
+        comment && res.render('newCommentList',comment);
+        err && next();
+    });
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
