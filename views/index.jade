@@ -3,7 +3,6 @@ block vars
  - var title = 'Home'
 
 block content
-  h1 Adda
   p 
    |Welcome to Adda home page.
    br
@@ -13,4 +12,7 @@ block content
    a(href="/login") login
    |&nbsp;to continue
   #topFiveTopics
-  	
+    |Top Trending Topics
+    ul
+    each topic in topics
+      li #{topic}

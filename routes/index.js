@@ -23,7 +23,9 @@ var requireLogin = function(req,res,next){
 router.use(loadUserFromSession);
 
 router.get('/',function(req,res){
-  res.render('index');
+  adda_records.getFiveLastCommentedTopics(function(err,topics){
+    res.render('index',{topics:topics});    
+  });
 });
 
 router.get('/register',function(req,res){
@@ -62,7 +64,9 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/dashboard/:id', function(req, res) {
-  res.render('dashboard',{user_id:req.params.id}); 
+  adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
+    res.render('dashboard',{user_id:req.params.id,topics:relatedTopics}); 
+  });
 });
 
 router.get('/topics/:id', function(req, res) {
@@ -70,7 +74,10 @@ router.get('/topics/:id', function(req, res) {
 });
 
 router.post('/topics', function(req,res){
-    var new_topic = {topic_name:req.body.topicName,topic_desc:req.body.topicDesc,owner_id:req.body.user_id};
+    var new_topic = {topic_name:req.body.topicName,
+                      topic_desc:req.body.topicDesc,
+                      owner_id:req.body.user_id
+                    };
     new_topic.start_time = new Date().toString().split('GMT')[0];
     adda_records.addNewTopic(new_topic,function(err){
     res.redirect('/topics/'+req.body.user_id);

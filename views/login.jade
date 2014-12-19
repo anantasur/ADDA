@@ -1,7 +1,8 @@
 extends layout
 block vars
  - var title = "Login"
-
+block links
+  a(href='/') home
 block content
   h1 Login to your account
   if error

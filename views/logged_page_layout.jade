@@ -4,9 +4,12 @@ html
   head
     title Adda #{title}
     link(rel='stylesheet', href="/stylesheets/style.css")
-    h1 ADDA
-    block links
-    hr
+    div(class="topbar")
+      h1 ADDA
+      a(href='/dashboard/#{user_id}') Dashboard
+      |&nbsp;| 
+      a(href='/logout') Logout
+      hr
     block scripts
   body
     block content

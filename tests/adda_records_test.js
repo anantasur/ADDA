@@ -182,4 +182,67 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	describe('#getUserRelatedTopics',function(){
+		it('retrieves user related all topics',function(done){
+			adda_records.getAllMyTopics(1,function(err,allTopics){
+				var expected = [ { topic_id: 1, topic_name: 'Cricket' },
+						  		{ topic_id: 2, topic_name: 'Football' } ];
+				assert.notOk(err);
+				assert.deepEqual(allTopics,expected);
+			});
+			adda_records.getAllMyTopics(2,function(err,allTopics){
+				var expected = [ { topic_id: 1, topic_name: 'Cricket' } ];
+				assert.notOk(err);
+				assert.deepEqual(allTopics,expected);
+				done();
+			});
+		});
+		it('retrieves no topics for non existing user',function(done){
+			adda_records.getAllMyTopics(8,function(err,allTopics){
+				assert.notOk(err);
+				assert.notOk(allTopics);
+				done();
+			});
+		});
+});
+
+
+
+
+
+
+
+
+
+
+
+
 });

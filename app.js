@@ -28,15 +28,16 @@ app.use('/', routes);
 
 app.get('/topicsList',function(req,res,next){
   var topicAskedByUser = req.query.topic;
+  var user_id = req.query.user;
   adda_records.getTopics(function(err,topics){
     var topicNames =  _.map(topics,'name');
     var relatedTopics = topicNames.filter(function(name){
         return name.toLowerCase().indexOf(topicAskedByUser)>=0;
     });
     var getIdAndName = relatedTopics.map(function(obj){
-
         return _.filter(topics,{'name':obj})[0];
     });
+    _.map(getIdAndName,function(obj){obj.user_id=user_id})
     relatedTopics && res.render('topicsList',{topicNames:getIdAndName});
     err && next();
   });

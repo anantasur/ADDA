@@ -4,7 +4,8 @@ var onSearchDone = function(fileNamesHTML){
 
 var onSearch = function(){
 	var topic = $('#topic').val().toLowerCase();
-	$.ajax('/topicsList?topic='+topic).done(onSearchDone).error(function(err){
+	var user = $('#user_id').val();
+	$.ajax('/topicsList?topic='+topic+'&user='+user).done(onSearchDone).error(function(err){
 		$('#displayResult').html(err.responseText);		
 	});
 };

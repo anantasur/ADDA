@@ -1,9 +1,14 @@
-extends layout
+extends logged_page_layout
 block vars
  - var title = "Dashboard"
 
 block content
   h1 Welcome to your dashboard
+  #myTopics MyTopics
+   ul
+    each topic in topics
+     li 
+      a(href='/topic/#{topic.topic_id}_#{user_id}') #{topic.topic_name}
   a(href="/topics/#{user_id}") topics
   br
-  a(href="/logout") logout
+ 
