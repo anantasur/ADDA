@@ -65,7 +65,7 @@ describe('adda_records',function(){
 	});
 
 	describe('#addNewTopic',function(){
-		it('adds a new topic PK ,its description,owner id and start time',function(done){
+		it('adds a new topic PK ,its description,owner id and start time also checks its entry in JU',function(done){
 			var newTopic = {
 								topic_name:'PK',
 								topic_desc:'dec-19th release',
@@ -89,8 +89,25 @@ describe('adda_records',function(){
 				adda_records.getTopicDetails(3,function(err,topic_details){
 					assert.notOk(err);
 					assert.deepEqual(topic_details,expected);
-					done();
+					
+					adda_records.getJoinedUsers(3,function(err,user_ids){
+						assert.notOk(err);
+						assert.deepEqual(user_ids,[ { user_id: 1 } ]);
+						done();
+					});
 				});
+
+			});
+		});
+	});
+
+
+	describe('#getJoinedUsers',function(){
+		it('gets joined users ids for a particular topic',function(done){
+			adda_records.getJoinedUsers(1,function(err,user_ids){
+				assert.notOk(err);
+				assert.deepEqual(user_ids,[ { user_id: 1 }, { user_id: 2 } ]);
+				done();
 			});
 		});
 	});
