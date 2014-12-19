@@ -55,10 +55,11 @@ router.post('/topics', function(req,res){
 });
 
 router.get('/topic/:id',function(req,res){
-  adda_records.getTopicDetails(req.params.id,function(err,topic){
-    adda_records.getLastFiveComments(req.params.id,function(err,comments){
+  var params = req.params.id.split('_');
+  adda_records.getTopicDetails(params[0],function(err,topic){
+    adda_records.getLastFiveComments(params[0],function(err,comments){
+      topic.user_id = params[1];
       topic.comments = comments;
-      
       res.render('topic',topic);      
     });
   });

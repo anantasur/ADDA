@@ -130,22 +130,27 @@ describe('adda_records',function(){
 			adda_records.getLastFiveComments(1,function(err,comments){
 				var expected = [ { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'seeya',
 						    entered_time: 'Wed Dec 17 2014 17:08:55' },
 						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'helloooooo',
 						    entered_time: 'Wed Dec 17 2014 17:08:57' },
 						  { topic_id: 1,
 						    user_id: 1,
+						    user_name:'vikas',
 						    comment: 'asdfghj',
 						    entered_time: 'Wed Dec 18 2014 17:07:55' },
 						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'asdfgh',
 						    entered_time: 'Wed Dec 17 2014 17:08:59' },
 						  { topic_id: 1,
 						    user_id: 2,
+						    user_name:'vikas2',
 						    comment: 'go_away',
 						    entered_time: 'Wed Dec 18 2014 17:10:55' } ]
 				assert.notOk(err);
@@ -162,18 +167,25 @@ describe('adda_records',function(){
 		});
 	});
 
-	// describe('#getNewUser',function(){
-	// 	it('gets the last inserted user',function(done){
-	// 		var user = {name:'userx',email:'userx@gmail.com',password:'userx'};
-	// 		var expected = {id:7,name:'userx',email:'userx@gmail.com',password:'userx'}
-	// 		adda_records.addNewUser(user,function(err){
-	// 			adda_records.getNewUser(function(err,user){
-	// 				assert.notOk(err);
-	// 				assert.deepEqual(user,expected);
-	// 			});
-	// 		});
-	// 	});
-	// });
+	describe('#addNewComment',function(){
+		it('adds new comment how are you? in comments table',function(done){
+			var new_comment = {'topic_id':2, 'user_id':2, 'comment':'how are you?',
+							 'entered_time':'Fri Dec 20 2014 17:10:05'};
+
+			var expected = [{'user_name': 'vikas2','user_id': 2,'topic_id': 2,
+						'comment': 'byee','entered_time': 'Wed Dec 17 2014 17:08:56' },
+						{'user_name': 'vikas2','topic_id':2, 'user_id':2, 'comment':'how are you?',
+							 'entered_time':'Fri Dec 20 2014 17:10:05'}];
+
+			adda_records.addNewComment(new_comment, function(err){
+				adda_records.getLastFiveComments(2,function(err,comments){
+					assert.notOk(err);
+					assert.deepEqual(comments,expected);
+					done();
+				});
+			});
+		});
+	});
 });
 
 

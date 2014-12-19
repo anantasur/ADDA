@@ -25,16 +25,19 @@ block content
 			td Description: #{description}
 	br
 	br
-	#loadComplete
-		button(type='button' name='loadComplete' value='loadComplete') Load Complete
+	input(type="hidden" value="#{comments[0].topic_id}" id='hidden')
+	input(id="loadComplete" type="button" value="Load Complete")
 	br
-	div
-		h5 COMMENTS
+	h5 COMMENTS
+	#fiveComments
 		each item in comments
 			| #{item.comment}
 			| #{item.entered_time}
 			| #{item.user_name}
 			br
+		#newComment
 	div
-		input(type='text' placeholder='Enter your comment' name='comment')
-		button(type='button' name='send' value='send') Send
+		input(id='addedComment' type='text' placeholder='Enter your comment' name='comment')
+		input(type="hidden" value="#{comments[0].topic_id}" id='hiddenTopicID')
+		input(type="hidden" value="#{user_id}" id='hiddenUserID')
+		button(id='sendComment' type='button' value='send') Send
