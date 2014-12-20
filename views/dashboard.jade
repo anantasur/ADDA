@@ -4,11 +4,12 @@ block vars
 
 block content
   h1 Welcome to your dashboard
-  #myTopics  
-   ul
-    each topic in topics
-     li 
-      a(href='/topic/#{topic.topic_id}_#{user_id}') #{topic.topic_name}
+  if comments
+   #myTopics  
+    ul
+     each topic in topics
+      li 
+       a(href='/topic/#{topic.topic_id}_#{user_id}') #{topic.topic_name}
   a(href="/topics/#{user_id}") topics
   br
  

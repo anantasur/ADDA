@@ -8,7 +8,7 @@ var winston = require('winston');
 var loadUserFromSession = function(req,res,next){
   var user = req.session.userEmail;
   if(user){
-    req.user = user;    
+    req.user = user;
     res.locals.user = user;
   }else{
     delete req.session.userEmail;
@@ -65,7 +65,6 @@ router.post('/login', function(req, res) {
 
 router.get('/dashboard/:id', function(req, res) {
   adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
-    console.log('------------',relatedTopics)
     res.render('dashboard',{user_id:req.params.id,topics:relatedTopics}); 
   });
 });
@@ -92,7 +91,6 @@ router.get('/topic/:id',function(req,res){
       topic.user_id = params[1];
       topic.topic_id = params[0];
       topic.comments = comments || [];
-        console.log('---------',topic)
       res.render('topic',topic);
     });
   });

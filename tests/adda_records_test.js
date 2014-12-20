@@ -40,7 +40,8 @@ describe('adda_records',function(){
 		it('retrieves all the topics',function(done){
 			adda_records.getTopics(function(err,topics){
 				assert.notOk(err);
-				assert.deepEqual(topics,[{"id": 1,"name": "Cricket"},{"id": 2,"name": "Football"}]);
+				assert.deepEqual(topics,[{"id": 1,"name": "Cricket"},
+									{"id": 2,"name": "Football"}]);
 				done();
 			});
 		});
@@ -62,43 +63,51 @@ describe('adda_records',function(){
 				done();
 			});
 		});
+		it('retrieves nothing of existing topic',function(done){
+			adda_records.getTopicDetails(8,function(err,topic_details){
+				assert.notOk(err);
+				assert.notOk(topic_details);
+				done();
+			});
+		});
 	});
 
 	describe('#addNewTopic',function(){
-		it('adds a new topic PK ,its description,owner id and start time also checks its entry in JU',function(done){
-			var newTopic = {
-								topic_name:'PK',
-								topic_desc:'dec-19th release',
-								start_time:'Wed Dec 17 2014 17:07:55',
-								owner_id:1
+		it('adds a new topic PK ,its description,owner id and start time also checks its entry in joinedUsers table',
+			function(done){
+				var newTopic = {
+									topic_name:'PK',
+									topic_desc:'dec-19th release',
+									start_time:'Wed Dec 17 2014 17:07:55',
+									owner_id:1
+								};
+				var newTopic = {topic_name:'PK',topic_desc:'dec-19th release',
+								start_time:'Wed Dec 17 2014 17:07:55',owner_id:1
 							};
-			var newTopic = {topic_name:'PK',topic_desc:'dec-19th release',
-							start_time:'Wed Dec 17 2014 17:07:55',owner_id:1
-						};
-			var expected = {
-								id:3,
-								name:'PK',
-								description:'dec-19th release',
-								start_time:'Wed Dec 17 2014 17:07:55',
-								end_time:null,
-								owner_id:1,
-								startedBy:'vikas'
-							};
-			adda_records.addNewTopic(newTopic,function(err){
-				assert.notOk(err);
-				adda_records.getTopicDetails(3,function(err,topic_details){
+				var expected = {
+									id:3,
+									name:'PK',
+									description:'dec-19th release',
+									start_time:'Wed Dec 17 2014 17:07:55',
+									end_time:null,
+									owner_id:1,
+									startedBy:'vikas'
+								};
+				adda_records.addNewTopic(newTopic,function(err){
 					assert.notOk(err);
-					assert.deepEqual(topic_details,expected);
-					
-					adda_records.getJoinedUsers(3,function(err,user_ids){
+					adda_records.getTopicDetails(3,function(err,topic_details){
 						assert.notOk(err);
-						assert.deepEqual(user_ids,[ { user_id: 1 } ]);
-						done();
+						assert.deepEqual(topic_details,expected);
+						
+						adda_records.getJoinedUsers(3,function(err,user_ids){
+							assert.notOk(err);
+							assert.deepEqual(user_ids,[ { user_id: 1 } ]);
+							done();
+						});
 					});
 				});
-
-			});
-		});
+			}
+		);
 	});
 
 

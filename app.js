@@ -57,10 +57,9 @@ app.get('/addComment',function(req,res,next){
     var topicId = req.query.topicId;
     var user_id = req.query.userId;
     var newTime = String(new Date()).split('GMT')[0];
-    var comment = {'topic_id':topicId, 'comment':req.query.comment,'user_id': user_id,
-                             'entered_time': newTime};
+    var comment = {'topic_id':topicId, 'comment':newComment,
+                    'user_id': user_id,'entered_time': newTime};
     adda_records.addNewComment(comment,function(err){
-        adda_records.get
         comment && res.render('newCommentList',comment);
         err && next();
     });
@@ -85,7 +84,7 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-}
+};
 
 // production error handler
 // no stacktraces leaked to user
