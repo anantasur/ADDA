@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www",
-    "initDB": "node scripts/initialize_db.js data/school.db",
+    "dev_start":"nodemon ./bin/www",
+    "db_operations":"sh scripts/db_creator.sh",
     "test": "mocha tests/*test.js"
   },
   "dependencies": {
@@ -22,7 +23,8 @@
     "bcryptjs":"*"
   },
   "devDependencies":{
-    "chai": "1.10.0"
+    "chai": "1.10.0",
+    "nodemon":"1.3.0-5"
   },
   "author": "",
   "license": "ISC"
