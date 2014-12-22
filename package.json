@@ -1,7 +1,7 @@
 {
   "name": "adda",
   "version": "1.0.0",
-  "description": "",
+  "description": "discussion forum",
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www",
