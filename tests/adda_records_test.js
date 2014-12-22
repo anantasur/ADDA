@@ -26,7 +26,7 @@ describe('adda_records',function(){
 			var user = {name:'krati',email:'krati@gmail.com',password:'krati'};
 			adda_records.addNewUser(user,function(err){
 				assert.notOk(err);
-				adda_records.getEmailAndPassword(function(err,users){
+				adda_records.getEmailAndPassword(function(eep,users){
 					assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'},
 											 {id:2,email:'vikas2@email.com',password:'vikas123'}, 
 											 {id:3,email:'krati@gmail.com',password:'krati'}]);
