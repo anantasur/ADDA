@@ -11,7 +11,7 @@ describe('adda_records',function(){
 	});
 
 	describe('#getEmailAndPassword',function(){
-		it('retrieves email and password',function(done){
+		it('retrieves email and password of all users',function(done){
 			adda_records.getEmailAndPassword(function(err,users){
 				assert.notOk(err);
 				assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'},
