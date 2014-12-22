@@ -3,7 +3,6 @@ var bc = require('bcryptjs');
 var router = express.Router();
 var adda_records = require('../lib/adda_records').init('./data/adda.db');
 var _ = require('lodash');
-var winston = require('winston');
 
 var loadUserFromSession = function(req,res,next){
   var user = req.session.userEmail;
@@ -63,13 +62,13 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.get('/dashboard/:id', function(req, res) {
+router.get('/dashboard/:id', requireLogin,function(req, res) {
   adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
     res.render('dashboard',{user_id:req.params.id,topics:relatedTopics}); 
   });
 });
 
-router.get('/topics/:id', function(req, res) {
+router.get('/topics/:id',requireLogin, function(req, res) {
   res.render('topics',{user_id:req.params.id}); 
 });
 
@@ -84,7 +83,7 @@ router.post('/topics', function(req,res){
     });
 });
 
-router.get('/topic/:id',function(req,res){
+router.get('/topic/:id',requireLogin,function(req,res){
   var params = req.params.id.split('_');
   adda_records.getTopicDetails(params[0],function(err,topic){
     adda_records.getLastFiveComments(params[0],function(err,comments){

@@ -1,6 +1,6 @@
 {
   "name": "adda",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,8 +22,7 @@
     "bcryptjs":"*"
   },
   "devDependencies":{
-    "chai": "1.10.0",
-    "winston":"*"
+    "chai": "1.10.0"
   },
   "author": "",
   "license": "ISC"
