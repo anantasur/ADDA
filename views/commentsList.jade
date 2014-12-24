@@ -1,6 +1,10 @@
-ul
+div
  each item in comments
-  li 
-   | #{item.comment}
-   | #{item.user_name}
-   | #{item.entered_time}
+   | COMMENT : #{item.comment}
+   br
+   | TIME : #{item.entered_time}
+   br
+   | USER : #{item.user_name}
+   br
+   br
+  #newComment

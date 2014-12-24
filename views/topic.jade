@@ -31,9 +31,12 @@ block content
 	h5 COMMENTS
 	#fiveComments
 		each item in comments
-			| #{item.comment}
-			| #{item.entered_time}
-			| #{item.user_name}
+			| COMMENT : #{item.comment}
+			br
+			| TIME : #{item.entered_time}
+			br
+			| USER : #{item.user_name}
+			br
 			br
 		#newComment
 	div

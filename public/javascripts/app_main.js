@@ -22,7 +22,7 @@ var onLoad = function(){
 };
 
 var afterAddingComment = function(comment){
-	$('#newComment').html(comment);
+	$('#newComment').append(comment);
 };
 
 var onSendingComment = function(){
@@ -32,6 +32,7 @@ var onSendingComment = function(){
 	$.ajax('/addComment?comment='+comment+'&topicId='+topic_id+'&userId='+user_id).done(afterAddingComment).error(function(err){
 		$('#newComment').html(err.responseText);
 	});
+
 };
 
 var onPageLoad = function(){
