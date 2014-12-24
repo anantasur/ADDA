@@ -16,7 +16,7 @@ describe('adda_records',function(){
 				assert.notOk(err);
 				assert.deepEqual(users,[{id:1,email:'vikassry@gmail.com',password:'vikash'},
 										{id:2,email:'vikas2@email.com',password:'vikas123'}]);
-				done();
+				
 			});
 		});
 	});
