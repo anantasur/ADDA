@@ -81,9 +81,6 @@ describe('adda_records',function(){
 									start_time:'Wed Dec 17 2014 17:07:55',
 									owner_id:1
 								};
-				var newTopic = {topic_name:'PK',topic_desc:'dec-19th release',
-								start_time:'Wed Dec 17 2014 17:07:55',owner_id:1
-							};
 				var expected = {
 									id:3,
 									name:'PK',
@@ -98,7 +95,6 @@ describe('adda_records',function(){
 					adda_records.getTopicDetails(3,function(err,topic_details){
 						assert.notOk(err);
 						assert.deepEqual(topic_details,expected);
-						
 						adda_records.getJoinedUsers(3,function(err,user_ids){
 							assert.notOk(err);
 							assert.deepEqual(user_ids,[ { user_id: 1 } ]);
@@ -256,6 +252,25 @@ describe('adda_records',function(){
 				assert.notOk(err);
 				assert.notOk(allTopics);
 				done();
+			});
+		});
+	});
+	describe("#getLastTopicID",function(){
+		it('retrieves id of the last topic added',function(done){
+			var newTopic = {
+								topic_name:'PK',
+								topic_desc:'dec-19th release',
+								start_time:'Wed Dec 17 2014 17:07:55',
+								owner_id:1
+							};
+							
+			adda_records.addNewTopic(newTopic,function(err){
+				assert.notOk(err);
+				adda_records.getLastTopicID(newTopic.topic_name,function(err,topicId){
+					assert.notOk(err);
+					assert.deepEqual(topicId,{id:3});
+					done();
+				});
 			});
 		});
 	});

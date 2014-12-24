@@ -79,7 +79,10 @@ router.post('/topics', function(req,res){
                     };
     new_topic.start_time = new Date().toString().split('GMT')[0];
     adda_records.addNewTopic(new_topic,function(err){
-    res.redirect('/topics/'+req.body.user_id);
+      adda_records.getLastTopicID(req.body.topicName,function(err,topicId){
+        new_topic.topicId = topicId.id;
+        res.redirect('/topic/'+new_topic.topicId+'_'+req.body.user_id);
+      });
     });
 });
 
