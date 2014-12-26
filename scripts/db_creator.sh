@@ -3,7 +3,6 @@ rm -rf data/adda.db
 rm -rf tests/data/adda.db
 rm -rf tests/data/adda.db.backup
 echo "------------->>>initializing production db"
-mkdir data
 node scripts/initialize_db.js data/adda.db
 echo "-------------->>>initializing test db"
 node tests/scripts/initialize_db.js tests/data/adda.db.backup
