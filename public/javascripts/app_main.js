@@ -27,8 +27,7 @@ var afterAddingComment = function(comment){
 };
 
 var onSendingComment = function(){
-	var comment = escape($('#addedComment').val());
-	comment = comment.replace(/\+/g,'%2B');
+	var comment = encodeURIComponent($('#addedComment').val());
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val();
 	$.ajax('/addComment?comment='+ comment+'&topicId='+topic_id+'&userId='+user_id).done(afterAddingComment).error(function(err){
