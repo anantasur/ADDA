@@ -60,10 +60,13 @@ app.get('/addComment',function(req,res,next){
     var comment = {'topic_id':topicId, 'comment':newComment,
                     'user_id': user_id,'entered_time': newTime};
     adda_records.addNewComment(comment,function(err){
-        comment && res.render('newCommentList',comment);
-        err && next();
+        adda_records.getUserNameById(user_id,function(err,user_name){
+            comment.user_name = user_name.name;
+            comment && res.render('newCommentList',comment);
+            err && next();
+        });
     });
-})
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

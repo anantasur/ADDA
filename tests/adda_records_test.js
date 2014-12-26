@@ -274,4 +274,14 @@ describe('adda_records',function(){
 			});
 		});
 	});
+
+	describe("#getUserNameById",function(){
+		it("retrieves user's name by given user's id",function(done){
+			adda_records.getUserNameById(2,function(err,user_name){
+				assert.notOk(err);
+				assert.deepEqual(user_name,{name:'vikas2'});
+				done();
+			});
+		});
+	});
 });
