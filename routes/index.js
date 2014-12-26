@@ -42,8 +42,8 @@ router.post('/register', function(req, res) {
   adda_records.addNewUser(result,function(error){
     error ? res.render('register',result) :
     adda_records.getNewUser(function(err,user){
-        req.session.userEmail = user.email;
-       res.redirect('/dashboard/'+user.id);      
+      req.session.userEmail = user.email;
+      res.redirect('/dashboard/'+user.id);      
     });
   });  
 });
