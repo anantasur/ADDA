@@ -26,10 +26,10 @@ var afterAddingComment = function(comment){
 };
 
 var onSendingComment = function(){
-	var comment = $('#addedComment').val();
+	var comment = escape($('#addedComment').val());
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val();
-	$.ajax('/addComment?comment='+comment+'&topicId='+topic_id+'&userId='+user_id).done(afterAddingComment).error(function(err){
+	$.ajax('/addComment?comment='+ encodeURI(comment) +'&topicId='+topic_id+'&userId='+user_id).done(afterAddingComment).error(function(err){
 		$('#newComment').html(err.responseText);
 	});
 

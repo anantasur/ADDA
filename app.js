@@ -53,7 +53,7 @@ app.get('/commentsList',function(req,res,next){
 });
 
 app.get('/addComment',function(req,res,next){
-    var newComment = req.query.comment;
+    var newComment = unescape(req.query.comment);
     var topicId = req.query.topicId;
     var user_id = req.query.userId;
     var newTime = String(new Date()).split('GMT')[0];
