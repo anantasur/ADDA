@@ -94,8 +94,9 @@ router.get('/topic/:id',requireLogin,function(req,res){
       topic.user_id = params[1];
       topic.topic_id = params[0];
       topic.comments = comments || [];
+      console.log('ppp',topic)
       res.render('topic',topic);
-    });
+   });
   });
 });
 
