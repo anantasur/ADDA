@@ -267,9 +267,20 @@ describe('adda_records',function(){
 							
 			adda_records.addNewTopic(newTopic,function(err){
 				assert.notOk(err);
-				adda_records.getLastTopicID(newTopic.topic_name,function(err,topicId){
+				adda_records.getLastTopicID(newTopic,function(err,topicId){
 					assert.notOk(err);
 					assert.deepEqual(topicId,{id:3});
+					done();
+				});
+			});
+		});
+		it('retrieves no id if no last insertion has been made',function(done){
+			var newTopic ={};
+			adda_records.addNewTopic(newTopic,function(err){
+				assert.notOk(err);
+				adda_records.getLastTopicID(newTopic,function(err,topicId){
+					assert.notOk(err);
+					assert.notOk(topicId);
 					done();
 				});
 			});
@@ -281,6 +292,13 @@ describe('adda_records',function(){
 			adda_records.getUserNameById(2,function(err,user_name){
 				assert.notOk(err);
 				assert.deepEqual(user_name,{name:'vikas2'});
+				done();
+			});
+		});
+		it("retrieves no user name for non-existing user's id",function(done){
+			adda_records.getUserNameById(8,function(err,user_name){
+				assert.notOk(err);
+				assert.notOk(user_name);
 				done();
 			});
 		});
