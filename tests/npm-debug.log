@@ -2,15 +2,15 @@
 1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'run',
-1 verbose cli   'test' ]
+1 verbose cli   'db_operations' ]
 2 info using npm@1.4.14
 3 info using node@v0.10.29
 4 error Error: ENOENT, open 'd:\ADDA\tests\package.json'
 5 error If you need help, you may report this *entire* log,
 5 error including the npm and node versions, at:
 5 error     <http://github.com/npm/npm/issues>
-6 error System Windows_NT 6.1.7600
-7 error command "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "test"
+6 error System Windows_NT 6.1.7601
+7 error command "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "db_operations"
 8 error cwd d:\ADDA\tests
 9 error node -v v0.10.29
 10 error npm -v 1.4.14
