@@ -50,7 +50,8 @@ describe('adda_records',function(){
 	describe('#getTopicDetails',function(){
 		it('retrives the topic detail of cricket',function(done){
 			var expected = {
-								id:1,name:'Cricket',
+								id:1,
+								name:'Cricket',
 								description:'About ind-Aus',
 								start_time:'Wed Dec 17 2014 17:07:55',
 								end_time:null,

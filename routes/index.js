@@ -31,6 +31,13 @@ router.get('/register',function(req,res){
   res.render('register');
 });
 
+var getNewUser = function(req,res){
+    adda_records.getNewUser(function(err,user){
+      req.session.userEmail = user.email;
+       res.redirect('/dashboard/'+user.id);      
+    });
+};
+
 router.post('/register', function(req, res) {
   var salt = bc.genSaltSync(10);
   var hash = bc.hashSync(req.body.password,salt);
@@ -41,10 +48,7 @@ router.post('/register', function(req, res) {
   };
   adda_records.addNewUser(result,function(error){
     error ? res.render('register',result) :
-    adda_records.getNewUser(function(err,user){
-      req.session.userEmail = user.email;
-       res.redirect('/dashboard/'+user.id);      
-    });
+      getNewUser(req,res);
   });  
 });
 
@@ -94,7 +98,6 @@ router.get('/topic/:id',requireLogin,function(req,res){
       topic.user_id = params[1];
       topic.topic_id = params[0];
       topic.comments = comments || [];
-      console.log('ppp',topic)
       res.render('topic',topic);
    });
   });
