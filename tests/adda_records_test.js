@@ -283,5 +283,12 @@ describe('adda_records',function(){
 				done();
 			});
 		});
+		it("retrieves no user name for non-existing user's id",function(done){
+			adda_records.getUserNameById(8,function(err,user_name){
+				assert.notOk(err);
+				assert.notOk(user_name);
+				done();
+			});
+		});
 	});
 });
