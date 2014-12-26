@@ -91,6 +91,20 @@ router.post('/topics', function(req,res){
     });
 });
 
+var options = function(topic){
+  if(topic.end_time!=null){
+    return 'closed';
+  }
+  else{
+    if(topic.user_id == topic.owner_id){
+      return 'close';
+    }
+    else{
+      return 'button';
+    }
+  }
+}
+
 router.get('/topic/:id',requireLogin,function(req,res){
   var params = req.params.id.split('_');
   adda_records.getTopicDetails(params[0],function(err,topic){
@@ -98,6 +112,7 @@ router.get('/topic/:id',requireLogin,function(req,res){
       topic.user_id = params[1];
       topic.topic_id = params[0];
       topic.comments = comments || [];
+      topic.button = options(topic);
       res.render('topic',topic);
    });
   });

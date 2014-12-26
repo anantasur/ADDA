@@ -23,6 +23,9 @@ block content
 	table
 		tr
 			td Description: #{description}
+	br 
+	br
+	input(id="options_btn" name="options_btn" type="button" value="#{button}")
 	br
 	br
 	input(type="hidden" value="#{topic_id}" id='hidden')
@@ -42,5 +45,7 @@ block content
 	div
 		input(id='addedComment' type='textbox' placeholder='Enter your comment' name='comment')
 		input(type="hidden" value="#{topic_id}" id='hiddenTopicID')
+		input(type="hidden" value="#{owner_id}" id='hiddenOwnerID')
+		input(type="hidden" value="#{end_time}" id='hiddenEndTime')
 		input(type="hidden" value="#{user_id}" id='hiddenUserID')
 		button(id='sendComment' type='button' value='send') Send

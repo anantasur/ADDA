@@ -303,4 +303,14 @@ describe('adda_records',function(){
 			});
 		});
 	});
+	describe("#checkUserExistInJoinTable",function(){
+		it("checks that vikas has join the topic cricket or not",function(done){
+			var input = {user_id:1,topic_id:1};
+			adda_records.checkUserExistInJoinTable(input,function(err,user){
+				assert.notOk(err);
+				assert.deepEqual(user,input);
+				done();
+			});
+		});
+	});
 });
