@@ -426,4 +426,20 @@ describe('adda_records', function() {
 			})
 		})
 	})
+	describe('#deleteFromJoinedUsers', function() {
+		it('delete user id 2 topic id 1 from joined users', function(done) {
+			var input = {
+				user_id: 2,
+				topic_id: 1
+			};
+			adda_records.deleteFromJoinedUsers(input, function(err) {
+				assert.notOk(err)
+				adda_records.checkUserExistInJoinTable(input, function(err, user) {
+					assert.notOk(err);
+					assert.deepEqual(user,undefined);
+					done();
+				})
+			});
+		})
+	})
 });
