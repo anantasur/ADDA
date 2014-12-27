@@ -2,20 +2,23 @@ extends layout
 block vars
  - var title = "Login"
 block links
-  a(href='/') home
+  a(href='/') Home
 block content
   h1 Login to your account
   if error
    p ERROR: #{error}
   form(action="/login" method="POST")
-   span 
-    b Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-     input(type="email" name="email" required)
-   br
-   br
-   span 
-    b Password: 
-     input(type="password" name="password" required)
+   table(cellpadding=5)
+    tr
+     td
+      b Email:
+     td
+      input(type="email" name="email" required)
+    tr
+     td
+      b Password: 
+     td
+      input(type="password" name="password" required)
    br
    br
    input(type="submit" value="Login")
