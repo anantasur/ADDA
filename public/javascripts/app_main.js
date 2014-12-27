@@ -50,10 +50,10 @@ var invokeOptions = function() {
 	var option = $('#options_btn').val();
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val();
-	$.ajax('/option?user_id=' + user_id + '&topic_id=' + topic_id+'&option='+option).done(afterClicking).error(
-		function(err){
+	$.ajax('/option?user_id=' + user_id + '&topic_id=' + topic_id + '&option=' + option).done(afterClicking).error(
+		function(err) {
 			$('#buttonOption').html(err.responseText);
-	});
+		});
 };
 
 var onPageLoad = function() {
