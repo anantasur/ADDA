@@ -22,8 +22,9 @@ block content
 	br
 	table
 		tr
-			td Description: #{description}
-	br 
+			td
+				b Description: 
+				| #{description}
 	br
 	input(id="options_btn" name="options_btn" type="button" value="#{button}")
 	br
@@ -31,7 +32,9 @@ block content
 	input(type="hidden" value="#{topic_id}" id='hidden')
 	input(id="loadComplete" type="button" value="Load Complete")
 	br
-	h5 COMMENTS
+	br
+	hr
+	h3 COMMENTS
 	#fiveComments
 		each item in comments
 			| COMMENT : #{item.comment}

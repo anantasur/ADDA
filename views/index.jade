@@ -7,16 +7,12 @@ block content
    |Welcome to Adda home page.
   br
   p
-   | This is a discussion forum.
-   br
-  p
-   | You can 
+   a(href="/login") Sign in
+   |&nbsp;to continue or 
    a(href="/register") register
-   |&nbsp;or 
-   a(href="/login") login
-   |&nbsp;to continue
+   |&nbsp;if new user
   #topFiveTopics
-    |Top Trending Topics
+    h2 Top Trending Topics
     ul
     each topic in topics
       li #{topic}
