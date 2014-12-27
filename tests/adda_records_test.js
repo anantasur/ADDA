@@ -346,6 +346,7 @@ describe('adda_records', function() {
 			});
 		});
 	});
+	
 	describe("#getLastTopicID", function() {
 		it('retrieves id of the last topic added', function(done) {
 			var newTopic = {
@@ -397,6 +398,7 @@ describe('adda_records', function() {
 			});
 		});
 	});
+
 	describe("#checkUserExistInJoinTable", function() {
 		it("checks that vikas has join the topic cricket or not", function(done) {
 			var input = {
@@ -410,6 +412,7 @@ describe('adda_records', function() {
 			});
 		});
 	});
+
 	describe('#insertIntoJoinedUsers', function() {
 		it('insert user id 2 and topic id 2 into joined users', function(done) {
 			var input = {
@@ -423,9 +426,10 @@ describe('adda_records', function() {
 					assert.deepEqual(user, input);
 					done();
 				});
-			})
-		})
-	})
+			});
+		});
+	});
+
 	describe('#deleteFromJoinedUsers', function() {
 		it('delete user id 2 topic id 1 from joined users', function(done) {
 			var input = {
@@ -438,8 +442,8 @@ describe('adda_records', function() {
 					assert.notOk(err);
 					assert.deepEqual(user,undefined);
 					done();
-				})
+				});
 			});
-		})
-	})
+		});
+	});
 });
