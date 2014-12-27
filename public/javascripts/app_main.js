@@ -23,6 +23,7 @@ var onLoad = function(){
 
 var afterAddingComment = function(comment){
 	$('#newComment').append(comment);
+	$('#addedComment').val('');
 };
 
 var onSendingComment = function(){
