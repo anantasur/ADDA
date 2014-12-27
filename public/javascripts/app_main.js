@@ -36,9 +36,33 @@ var onSendingComment = function(){
 
 };
 
+var afterClickingJoin = function(joined){
+	$("body").html(joined);
+};
+
+var join = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val(); 
+	$.ajax('/join?user_id='+user_id+'&topic_id='+topic_id).done(afterClickingJoin).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
+
+var invokeOptions = function(){
+	var option = $('#options_btn').val();
+	return (option == 'join') && join() || (option == 'leave') && leave() || (option == 'close') && close();
+};
+
 var onPageLoad = function(){
+	if($('#options_btn').val()=='join')
+		$('#sendComment').attr('disabled','disabled');
+	if($('#options_btn').val()=='closed'){
+		$('#options_btn').attr('disabled','disabled');
+		$('#sendComment').attr('disabled','disabled');
+	}
 	$('#search').click(onSearch);
 	$('#loadComplete').click(onLoad);
 	$('#sendComment').click(onSendingComment);
+	$('#options_btn').click(invokeOptions);
 };
 $(document).ready(onPageLoad);

@@ -91,32 +91,41 @@ router.post('/topics', function(req,res){
     });
 });
 
-var options = function(topic){
-  if(topic.end_time!=null){
+var options = function(topic) {
+  if (topic.end_time != null) {
     return 'closed';
-  }
-  else{
-    if(topic.user_id == topic.owner_id){
+  } else {
+    if (topic.user_id == topic.owner_id) {
       return 'close';
-    }
-    else{
-      return 'button';
+    } else {
+      if (topic.user == undefined)
+        return 'join'
+      else
+        return 'leave'
     }
   }
-}
+};
 
-router.get('/topic/:id',requireLogin,function(req,res){
+router.get('/topic/:id', requireLogin, function(req, res) {
   var params = req.params.id.split('_');
-  adda_records.getTopicDetails(params[0],function(err,topic){
-    adda_records.getLastFiveComments(params[0],function(err,comments){
-      topic.user_id = params[1];
-      topic.topic_id = params[0];
-      topic.comments = comments || [];
-      topic.button = options(topic);
-      res.render('topic',topic);
-   });
+  var input = {
+    user_id: params[1],
+    topic_id: params[0]
+  };
+  adda_records.getTopicDetails(params[0], function(err, topic) {
+    adda_records.getLastFiveComments(params[0], function(err, comments) {
+      adda_records.checkUserExistInJoinTable(input, function(err, user) {
+        topic.user = user;
+        topic.user_id = params[1];
+        topic.topic_id = params[0];
+        topic.comments = comments || [];
+        topic.button = options(topic);
+        res.render('topic', topic);
+      })
+    });
   });
 });
+
 
 router.get('/logout',function(req,res){
   req.session.destroy();
