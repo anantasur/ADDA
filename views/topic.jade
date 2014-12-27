@@ -37,11 +37,11 @@ block content
 	h4 COMMENTS
 	#fiveComments
 		each item in comments
-			| COMMENT : #{item.comment}
+			| #{item.comment}
 			br
-			| TIME : #{item.entered_time}
+			| #{item.entered_time}
 			br
-			| USER : #{item.user_name}
+			| #{item.user_name}
 			br
 			br
 		#newComment

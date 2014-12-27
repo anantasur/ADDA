@@ -2,22 +2,28 @@ extends layout
 block vars
  - var title = "Register"
 block links
-  a(href='/') home
+  a(href='/') Home
 block content
   h1 Create your account
   if error
    p ERROR: #{error}
   form(action="/register" method="POST")
-   span 
-    |Name:
-    input(type="text" name="name" required)
+   table(cellpadding=5)
+    tr
+     td
+      b Name:
+     td 
+      input(type="text" name="name" required)
+    tr
+     td
+      b Email: 
+     td
+      input(type="email" name="email" required)
+    tr
+     td
+      b Password: 
+     td
+      input(type="password" name="password" required)
    br
-   span 
-    |Email:
-    input(type="email" name="email" required)
-   br
-   span 
-    |Password:
-    input(type="password" name="password" required)
    br
    input(type="submit" value="Register")

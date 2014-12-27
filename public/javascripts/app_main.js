@@ -46,7 +46,36 @@ var afterClicking = function(joined) {
 	$("body").html(joined);
 };
 
+<<<<<<< HEAD
 var invokeOptions = function() {
+=======
+var close = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val();
+	$.ajax('/close?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
+
+
+var leave = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val(); 
+	$.ajax('/leave?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
+
+var join = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val(); 
+	$.ajax('/join?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
+
+var invokeOptions = function(){
+>>>>>>> 0c49ded326a76b4bed1cd28880ed3c9563d5171a
 	var option = $('#options_btn').val();
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val();
@@ -56,12 +85,26 @@ var invokeOptions = function() {
 		});
 };
 
+<<<<<<< HEAD
 var onPageLoad = function() {
 	if ($('#options_btn').val() == 'join')
 		$('#sendComment').attr('disabled', 'disabled');
 	if ($('#options_btn').val() == 'closed') {
 		$('#options_btn').attr('disabled', 'disabled');
 		$('#sendComment').attr('disabled', 'disabled');
+=======
+var removeCommentField = function(){
+		$("#addedComment").hide();
+		$("#sendComment").hide();
+};
+
+var onPageLoad = function(){
+	if($('#options_btn').val()=='join')
+		removeCommentField();
+	if($('#options_btn').val()=='closed'){
+		$('#options_btn').attr('disabled','disabled');
+		removeCommentField();
+>>>>>>> 0c49ded326a76b4bed1cd28880ed3c9563d5171a
 	}
 	$('#search').click(onSearch);
 	$('#loadComplete').click(onLoad);
