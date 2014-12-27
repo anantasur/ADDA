@@ -1,7 +1,5 @@
-echo "------------->>>removing old databases"
-rm -rf data/adda.db
-rm -rf tests/data/adda.db
-rm -rf tests/data/adda.db.backup
+mkdir data
+mkdir tests/data 
 echo "------------->>>initializing production db"
 node scripts/initialize_db.js data/adda.db
 echo "-------------->>>initializing test db"
