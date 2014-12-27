@@ -42,7 +42,7 @@ var afterClicking = function(joined){
 
 var close = function(){
 	var topic_id = $('#hiddenTopicID').val();
-	var user_id = $('#hiddenUserID').val(); 
+	var user_id = $('#hiddenUserID').val();
 	$.ajax('/close?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
 		$('#buttonOption').html(err.responseText);
 	});
@@ -70,12 +70,17 @@ var invokeOptions = function(){
 	return (option == 'join') && join() || (option == 'leave') && leave() || (option == 'close') && close();
 };
 
+var removeCommentField = function(){
+		$("#addedComment").hide();
+		$("#sendComment").hide();
+};
+
 var onPageLoad = function(){
 	if($('#options_btn').val()=='join')
-		$('#sendComment').attr('disabled','disabled');
+		removeCommentField();
 	if($('#options_btn').val()=='closed'){
 		$('#options_btn').attr('disabled','disabled');
-		$('#sendComment').attr('disabled','disabled');
+		removeCommentField();
 	}
 	$('#search').click(onSearch);
 	$('#loadComplete').click(onLoad);

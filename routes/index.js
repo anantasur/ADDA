@@ -69,12 +69,16 @@ router.post('/login', function(req, res) {
 
 router.get('/dashboard/:id', requireLogin,function(req, res) {
   adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
-    res.render('dashboard',{user_id:req.params.id,topics:relatedTopics}); 
+    adda_records.getUserNameById(req.params.id,function(err,user_name){
+      res.render('dashboard',{user_id:req.params.id,topics:relatedTopics,user_name:user_name}); 
+    });
   });
 });
 
 router.get('/topics/:id',requireLogin, function(req, res) {
-  res.render('topics',{user_id:req.params.id}); 
+  adda_records.getUserNameById(req.params.id,function(err,user_name){
+    res.render('topics',{user_id:req.params.id,user_name:user_name}); 
+  });
 });
 
 router.post('/topics', function(req,res){
@@ -120,7 +124,11 @@ router.get('/topic/:id', requireLogin, function(req, res) {
         topic.topic_id = params[0];
         topic.comments = comments || [];
         topic.button = options(topic);
-        res.render('topic', topic);
+        adda_records.getUserNameById(topic.user_id,function(err,user_name){
+          topic.user_name = user_name;
+          console.log(topic);
+          res.render('topic', topic);
+        });
       })
     });
   });
