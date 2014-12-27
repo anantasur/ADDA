@@ -436,10 +436,35 @@ describe('adda_records', function() {
 				assert.notOk(err)
 				adda_records.checkUserExistInJoinTable(input, function(err, user) {
 					assert.notOk(err);
-					assert.deepEqual(user,undefined);
+					assert.deepEqual(user, undefined);
 					done();
-				})
+				});
 			});
-		})
-	})
+		});
+	});
+	describe('#updateEndTimeIntoTopics', function() {
+		it('insert end time into cricket', function(done) {
+			var input = {
+				topic_id: 1,
+				end_time: 'Wed Dec 27 2014 17:07:55'
+			};
+			var expected = {
+				id: 1,
+				name: 'Cricket',
+				description: 'About ind-Aus',
+				start_time: 'Wed Dec 17 2014 17:07:55',
+				end_time: 'Wed Dec 27 2014 17:07:55',
+				owner_id: 2,
+				startedBy: 'vikas2'
+			};
+			adda_records.updateEndTimeIntoTopics(input, function(err) {
+				assert.notOk(err);
+				adda_records.getTopicDetails(1, function(err, topic) {
+					assert.notOk(err);
+					assert.deepEqual(topic, expected);
+					done();
+				});
+			});
+		});
+	});
 });

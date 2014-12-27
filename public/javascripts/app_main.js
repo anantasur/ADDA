@@ -36,14 +36,31 @@ var onSendingComment = function(){
 
 };
 
-var afterClickingJoin = function(joined){
+var afterClicking = function(joined){
 	$("body").html(joined);
 };
+
+var close = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val(); 
+	$.ajax('/close?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
+
+
+var leave = function(){
+	var topic_id = $('#hiddenTopicID').val();
+	var user_id = $('#hiddenUserID').val(); 
+	$.ajax('/leave?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
+		$('#buttonOption').html(err.responseText);
+	});
+}
 
 var join = function(){
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val(); 
-	$.ajax('/join?user_id='+user_id+'&topic_id='+topic_id).done(afterClickingJoin).error(function(err){
+	$.ajax('/join?user_id='+user_id+'&topic_id='+topic_id).done(afterClicking).error(function(err){
 		$('#buttonOption').html(err.responseText);
 	});
 }
