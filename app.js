@@ -102,7 +102,9 @@ app.get('/leave',function(req,res,next){
 })
 
 app.get('/close',function(req,res,next){
-    adda_records.updateEndTimeIntoTopics(req.query,function(err){
+    var input = req.query;
+    input.end_time = new Date().toString().split('GMT')[0];
+    adda_records.updateEndTimeIntoTopics(input,function(err){
         res.redirect('/topic/'+req.query.topic_id+'_'+req.query.user_id);
         next();
     })
