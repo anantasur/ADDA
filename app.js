@@ -87,29 +87,48 @@ app.post('/addComment', function(req, res, next) {
     });
 });
 
-app.get('/join', function(req, res, next) {
-    adda_records.insertIntoJoinedUsers(req.query, function(err) {
-        res.redirect('/topic/' + req.query.topic_id + '_' + req.query.user_id);
-        next();
-    })
-})
+app.get('/option', function(req, res, next) {
+    // var button = {
+    //     'join': function(req, res, next) {
+    //         adda_records.insertIntoJoinedUsers(req.query, function(err) {
+    //             res.redirect('/topic/' + req.query.topic_id + '_' + req.query.user_id);
+    //             next();
+    //         })
+    //     },
+    //     'leave': function(req, res, next) {
+    //         adda_records.deleteFromJoinedUsers(req.query, function(err) {
+    //                 res.redirect('/topic/' + req.query.topic_id + '_' + req.query.user_id);
+    //             next();
+    //         })
+    //     },
+    //     'close': function(req, res, next) {
+    //         console.log()
+    //         var input = req.query;
+    //         input.end_time = new Date().toString().split('GMT')[0];
+    //         adda_records.updateEndTimeIntoTopics(input, function(err) {
+    //             res.redirect('/topic/' + req.query.topic_id + '_' + req.query.user_id);
+    //             next();
+    //         })
+    //     }
+    // }
 
-app.get('/leave',function(req,res,next){
-    adda_records.deleteFromJoinedUsers(req.query,function(err){
-        res.redirect('/topic/'+req.query.topic_id+'_'+req.query.user_id);
-        next();
-    })
-})
+    var btnFunction = {
+        'join': adda_records.insertIntoJoinedUsers,
+        'leave': adda_records.deleteFromJoinedUsers,
+        'close':adda_records.updateEndTimeIntoTopics
+    }
 
-app.get('/close',function(req,res,next){
-    var input = req.query;
-    input.end_time = new Date().toString().split('GMT')[0];
-    adda_records.updateEndTimeIntoTopics(input,function(err){
-        res.redirect('/topic/'+req.query.topic_id+'_'+req.query.user_id);
-        next();
-    })
-})
-
+    var button = function(req, res, next) {
+        console.log('**********',btnFunction[req.query.option], '**********')
+        var input = req.query;
+        input.end_time = new Date().toString().split('GMT')[0];
+        btnFunction[req.query.option](input, function(err) {
+            res.redirect('/topic/' + req.query.topic_id + '_' + req.query.user_id);
+            next();
+        })
+    }
+    button(req, res, next);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
