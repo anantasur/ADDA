@@ -9,7 +9,7 @@ block content
 	h1 Topics
 	#addTopic
 		form(action="/topics" method="POST")
-			| Add topic
+			b Add topic
 			br
 			input(type="text" name="topicName" placeholder="topic name" required)
 			input(type="hidden" name="user_id" value="#{user_id}" id="user_id")
@@ -19,7 +19,9 @@ block content
 			br
 			input(type="submit" value="submit")
 	br
+	hr
 	br
+	b Search Topic
 	#searchTopic
 		input(id="topic" type="text" placeholder="enter topic name")
 		input(id="search" type="button" value="search") 

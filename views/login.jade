@@ -9,11 +9,13 @@ block content
    p ERROR: #{error}
   form(action="/login" method="POST")
    span 
-    |Email:
-    input(type="email" name="email" required)
+    b Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+     input(type="email" name="email" required)
+   br
    br
    span 
-    |Password:
-    input(type="password" name="password" required)
+    b Password: 
+     input(type="password" name="password" required)
+   br
    br
    input(type="submit" value="Login")
