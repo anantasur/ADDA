@@ -44,7 +44,7 @@ app.get('/topicsList',function(req,res,next){
   });
 });
 
-app.get('/commentsList',function(req,res,next){
+app.post('/commentsList',function(req,res,next){
     var topicId = req.query.topic_id;
     adda_records.getAllComments(topicId,function(err,comments){
         comments && res.render('commentsList',{comments:comments});
@@ -52,8 +52,9 @@ app.get('/commentsList',function(req,res,next){
     });
 });
 
-app.get('/addComment',function(req,res,next){
+app.post('/addComment',function(req,res,next){
     var newComment = unescape(req.query.comment);
+    // var newComments = eval(newComment);
     var topicId = req.query.topicId;
     var user_id = req.query.userId;
     var newTime = String(new Date()).split('GMT')[0];

@@ -16,7 +16,7 @@ var aferLoadingComplete = function(comments){
 
 var onLoad = function(){
 	var topic_id = $('#hidden').val();
-	$.ajax('/commentsList?topic_id='+topic_id).done(aferLoadingComplete).error(function(err){
+	$.ajax({url:'/commentsList?topic_id='+topic_id,type:"POST"}).done(aferLoadingComplete).error(function(err){
 		$('#fiveComments').html(err.responseText);
 	});
 };
@@ -26,10 +26,10 @@ var afterAddingComment = function(comment){
 };
 
 var onSendingComment = function(){
-	var comment = escape($('#addedComment').val());
+	var comment = encodeURIComponent($('#addedComment').val());
 	var topic_id = $('#hiddenTopicID').val();
 	var user_id = $('#hiddenUserID').val();
-	$.ajax('/addComment?comment='+ encodeURI(comment) +'&topicId='+topic_id+'&userId='+user_id).done(afterAddingComment).error(function(err){
+	$.ajax({url:'/addComment?comment='+ comment +'&topicId='+topic_id+'&userId='+user_id,type:"POST"}).done(afterAddingComment).error(function(err){
 		$('#newComment').html(err.responseText);
 	});
 
