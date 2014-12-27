@@ -73,31 +73,19 @@ router.post('/login', function(req, res) {
   });
 });
 
-<<<<<<< HEAD
-router.get('/dashboard/:id', requireLogin, function(req, res) {
-  adda_records.getAllMyTopics(req.params.id, function(err, relatedTopics) {
-    res.render('dashboard', {
-      user_id: req.params.id,
-      topics: relatedTopics
-=======
+
 router.get('/dashboard/:id', requireLogin,function(req, res) {
   adda_records.getAllMyTopics(req.params.id,function(err,relatedTopics){
     adda_records.getUserNameById(req.params.id,function(err,user_name){
       res.render('dashboard',{user_id:req.params.id,topics:relatedTopics,user_name:user_name}); 
->>>>>>> 0c49ded326a76b4bed1cd28880ed3c9563d5171a
     });
   });
 });
 
-<<<<<<< HEAD
-router.get('/topics/:id', requireLogin, function(req, res) {
-  res.render('topics', {
-    user_id: req.params.id
-=======
+
 router.get('/topics/:id',requireLogin, function(req, res) {
   adda_records.getUserNameById(req.params.id,function(err,user_name){
     res.render('topics',{user_id:req.params.id,user_name:user_name}); 
->>>>>>> 0c49ded326a76b4bed1cd28880ed3c9563d5171a
   });
 });
 
@@ -162,27 +150,3 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
