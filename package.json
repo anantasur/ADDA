@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "dev_start":"nodemon ./bin/www",
     "db_operations":"sh scripts/db_creator.sh",
-    "test": "mocha tests/*test.js"
+    "test": "sh scripts/test_db_creator.sh && mocha tests/*test.js"
   },
   "dependencies": {
     "express": "~4.9.0",

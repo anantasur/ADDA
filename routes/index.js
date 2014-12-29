@@ -135,7 +135,6 @@ router.get('/topic/:id', requireLogin, function(req, res) {
         topic.button = options(topic);
         adda_records.getUserNameById(topic.user_id,function(err,user_name){
           topic.user_name = user_name;
-          console.log(topic);
           res.render('topic', topic);
         });
       })
